@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel art</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game">
+        <div id="sidebar">
+
+            <div id="painelControl">
+                <input type="number" value="16" min="1" max="170" id="rows" onchange="fixProportion(this)" > <span>Height</span>
+
+                <input type="number" value="16" min="1" max="300" id="columns" onchange="fixProportion(this)" > <span>Width</span>
+
+                <button id="drawPainel" onclick="configurarJogo()">Resetar o Painel</button>
+            </div>
+
+
+            <div id="settings">
+                <div id="optionsofoptions"><p>Options</p></div>
+                <div id="showtime">                
+                    <label for="Hold" id="holdToPaintText">Segure para pintar</label>
+                    <input type="checkbox" name="Hold" id="holdToPaint" onclick="changeHoldState()">
+                    <label for="ShowGrid">Mostrar Grid</label>
+                    <input type="checkbox" name="ShowGrid" id="showGrid" onclick="showGrid()" checked>
+                    <label for="Proportion" id="fixProportionText">Fixar proporção (Quadrado)</label>
+                    <input type="checkbox" name="Proportion" id="fixProportion" onclick="toggleProportion(this)">
+                    <label for="NeedConfirm">Tela de Confirmar</label>
+                    <input type="checkbox" name="NeedConfirm" id="needConfirm" checked onclick="toggleConfirm(this)">
+                </div>
+
+            </div>
+
+
+            <div id="toolHandler">
+                <input type="radio" name="Tool" checked>
+                <input type="radio" name="Tool">
+                <input type="radio" name="Tool">
+            </div>
+
+
+            <div id="colorHandler">
+                <input type="color" id="colorPicker">
+            </div>
+
+
+            <div id="presetColorHandler">
+                <button onclick="selectColor('#ff0000')" id="Red"></button>
+                <button onclick="selectColor('#ffff00')" id="Yellow"></button>
+                <button onclick="selectColor('#32cd32')" id="Green"></button>
+                <button onclick="selectColor('#0000ff')" id="Blue"></button>
+            </div>
+
+            <div id="saveButton">
+                <button onclick="saveDrawing()">Save Test</button>
+                <button onclick="loadDrawning()">Load Test</button>
+            </div>
+
+        </div>
+        <div id="painel">
+            <div id="grid">
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

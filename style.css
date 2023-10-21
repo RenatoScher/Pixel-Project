@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+#game {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background-color: #eee;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 100%;
+}
+
+#game #sidebar {
+    grid-area: 1 / 1 / 2 / 2;
+    background-color: #002878;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding-top: 24px;
+    padding-left: 12px;
+    padding-bottom: 32px;
+}
+
+#sidebar #Red {
+    background-color: red;
+}
+
+#sidebar #Yellow {
+    background-color: yellow;
+}
+
+#sidebar #Green {
+    background-color: lime;
+}
+
+#sidebar #Blue {
+    background-color: blue;
+}
+
+#game #painel {
+    grid-area: 1 / 2 / 2 / 3;
+    background-color: #002466;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 
+    display: grid;
+    place-items: center;
+    */
+
+    padding: 100px;
+}
+
+#game #painel #grid {
+    background-color: #1c113d;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    display: grid;
+    outline: #9ab5e7 5px solid;
+}
+
+#game #painel #grid input {
+    min-width: 1px;
+    min-height: 1px;
+    /* background-color: white; */
+    border: #0b0b0b solid 0.1px;
+}
+
+#game #painel .hideGrid input {
+    border: none !important;
+}
+
+#confirm {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .4);
+    top: 0;
+    padding-top: calc(50vh - 200px / 2);
+    padding-left: calc(50vw - 400px / 2);
+    box-sizing: border-box;
+}
+
+#confirm div {
+    width: 400px;
+    height: 200px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 70% 1fr;
+    padding-top: 48px;
+    box-sizing: border-box;
+}
+
+#confirm div p {
+    width: 100%;
+    height: 60%;
+    grid-area: 1 / 1 / 2 / 3;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+#sidebar #drawPainel {
+    background-color: #9aaac9;
+    color: #0b0b0b;
+    width: 75px;
+    border: 3px solid #6788c9;
+    border-radius: 3px;
+    position: relative;
+    left: 175px;
+    top:-18px;
+
+}
+
+#presetColorHandler button {
+    color: white;
+    border: 3px solid whitesmoke;
+    border-radius: 3px;
+    height: 40px;
+    width: 40px;
+
+}
+
+#painelControl input{
+    margin: 10px;
+    border: 2px solid #0b0b0b;
+    border-radius: 3px;
+    padding: 2px;
+}
+span{
+    color: white;
+}
+#painelControl input:nth-of-type(2){    
+    margin: 10px;
+    position: relative;
+    top:50px;
+    left:-140px;
+}
+#painelControl span:nth-of-type(2){
+    position: relative;
+    top:50px;
+    left:-140px;
+}
+#painelControl{
+    background-color: #0d4cc1;
+    position: relative;
+    top:-23px;
+    left: -12px;
+    width: 300px;
+    height: 90px;
+    border-bottom: 5px solid #002466 ;
+    
+}
+#optionsofoptions{
+    width: 150px;
+    height: 50px;
+    background-color: #0d4cc1;
+    text-align: center;
+}
