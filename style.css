@@ -34,16 +34,40 @@ button {
     background-color: red;
 }
 
+#sidebar #Orange {
+    background-color: orange;
+}
+
 #sidebar #Yellow {
     background-color: yellow;
 }
 
-#sidebar #Green {
+#sidebar #Lime {
     background-color: lime;
+}
+
+#sidebar #Green {
+    background-color: green;
+}
+
+#sidebar #Cyan {
+    background-color: cyan;
 }
 
 #sidebar #Blue {
     background-color: blue;
+}
+
+#sidebar #Purple {
+    background-color: purple;
+}
+
+#sidebar #Magenta {
+    background-color: magenta;
+}
+
+#sidebar #Pink {
+    background-color: #ffc0cb;
 }
 
 #game #painel {
@@ -71,15 +95,73 @@ button {
     outline: #9ab5e7 5px solid;
 }
 
+@keyframes Awesome {
+    0% {
+        border: 1px solid lime;
+    }
+    14% {
+        border: 1px solid lime;
+    }
+    15% {
+        border: 1px solid #747853;
+    }
+    28% {
+        border: 1px solid #747853;
+    }
+    29% {
+        border: 1px solid green;
+    }
+    42% {
+        border: 1px solid green;
+    }
+    43% {
+        border: 1px solid blue;
+    }
+    56% {
+        border: 1px solid blue;
+    }
+    57% {
+        border: 1px solid magenta;
+    }
+    70% {
+        border: 1px solid magenta;
+    }
+    71% {
+        border: 1px solid burlywood;
+    }
+    85% {
+        border: 1px solid burlywood;
+    }
+    86% {
+        border: 1px solid aquamarine;
+    }
+    99% {
+        border: 1px solid aquamarine;
+    }
+}
+
 #game #painel #grid input {
     min-width: 1px;
     min-height: 1px;
-    /* background-color: white; */
+    background-color: white;
     border: #0b0b0b solid 0.1px;
 }
 
 #game #painel .hideGrid input {
     border: none !important;
+}
+
+#game #painel .awesome input {
+    animation: Awesome 150ms infinite;
+}
+
+
+#game #painel .prowler {
+    background-image: url();
+}
+
+#game #painel .prowler input {
+    background-color: transparent !important;
 }
 
 #confirm {
@@ -169,4 +251,5 @@ span{
     height: 50px;
     background-color: #0d4cc1;
     text-align: center;
+    
 }

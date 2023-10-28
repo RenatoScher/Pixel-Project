@@ -11,9 +11,9 @@
         <div id="sidebar">
 
             <div id="painelControl">
-                <input type="number" value="16" min="1" max="170" id="rows" onchange="fixProportion(this)" > <span>Height</span>
+                <input type="number" value="16" min="1" max="58" id="rows" onchange="fixProportion(this)" > <span>Rows</span>
 
-                <input type="number" value="16" min="1" max="300" id="columns" onchange="fixProportion(this)" > <span>Width</span>
+                <input type="number" value="16" min="1" max="100" id="columns" onchange="fixProportion(this)" > <span>Columns</span>
 
                 <button id="drawPainel" onclick="configurarJogo()">Resetar o Painel</button>
             </div>
@@ -23,7 +23,7 @@
                 <div id="optionsofoptions"><p>Options</p></div>
                 <div id="showtime">                
                     <label for="Hold" id="holdToPaintText">Segure para pintar</label>
-                    <input type="checkbox" name="Hold" id="holdToPaint" onclick="changeHoldState()">
+                    <input type="checkbox" name="Hold" id="holdToPaint" onclick="changeHoldState(this)">
                     <label for="ShowGrid">Mostrar Grid</label>
                     <input type="checkbox" name="ShowGrid" id="showGrid" onclick="showGrid()" checked>
                     <label for="Proportion" id="fixProportionText">Fixar proporção (Quadrado)</label>
@@ -36,9 +36,12 @@
 
 
             <div id="toolHandler">
-                <input type="radio" name="Tool" checked>
-                <input type="radio" name="Tool">
-                <input type="radio" name="Tool">
+                <input type="radio" name="Tool" id="Paint" checked> <!-- Pincel -->
+                <input type="radio" name="Tool" id="Eraser"> <!-- Borracha -->
+                <input type="radio" name="Tool" id="Fill"> <!-- Fill Function -->
+                <input type="radio" name="Tool" id="Eyedropper"> <!-- Eyedropper -->
+                <input type="button" value="Undo" onclick="loadAction(1)">
+                <input type="button" value="Redo" onclick="loadAction(-1)">
             </div>
 
 
@@ -49,14 +52,20 @@
 
             <div id="presetColorHandler">
                 <button onclick="selectColor('#ff0000')" id="Red"></button>
+                <button onclick="selectColor('#ffa500')" id="Orange"></button>
                 <button onclick="selectColor('#ffff00')" id="Yellow"></button>
-                <button onclick="selectColor('#32cd32')" id="Green"></button>
+                <button onclick="selectColor('#00ff00')" id="Lime"></button>
+                <button onclick="selectColor('#008000')" id="Green"></button>
+                <button onclick="selectColor('#00ffff')" id="Cyan"></button>
                 <button onclick="selectColor('#0000ff')" id="Blue"></button>
+                <button onclick="selectColor('#800080')" id="Purple"></button>
+                <button onclick="selectColor('#ff00ff')" id="Magenta"></button>
+                <button onclick="selectColor('#ffc0cb')" id="Pink"></button>
             </div>
 
             <div id="saveButton">
-                <button onclick="saveDrawing()">Save Test</button>
-                <button onclick="loadDrawning()">Load Test</button>
+                <button onclick="saveDrawing('Saved')">Save Test</button>
+                <button onclick="loadDrawning('Saved')">Load Test</button>
             </div>
 
         </div>
