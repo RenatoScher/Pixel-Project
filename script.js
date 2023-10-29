@@ -292,6 +292,14 @@ function showGrid() {
 
 let proportional = false
 function fixProportion(btn) {
+    // console.log(String(btn.value));
+    // if (String(inpRow.value) == '') {
+        
+    // }
+
+    inpRow.value = Math.floor(inpRow.value)
+    inpCol.value = Math.floor(inpCol.value);
+
 
     if (inpCol.value > 100) {
         inpCol.value = 100;
@@ -520,9 +528,17 @@ document.addEventListener('mousedown', () => {
 setInterval(() => {
     serverTime++;
     if (serverTime - lastClickTime == 30 && (history[historyIndex][1][0] == 'rgb(0, 0, 0)') && (history[historyIndex][1][1] == gridSize[0] * gridSize[1] - 1)) {
+        let audio = new Audio('assets/Howl.mp3');
+        audio.play();
+
         grid.classList.toggle('prowler');
+        const rand = Math.floor(Math.random() * 100);
+        if (rand <= 15) {
+            grid.classList.toggle('myProwl')
+        }
         setTimeout(() => {
             grid.classList.toggle('prowler')
-        }, 5000);
+            grid.classList.remove('myProwl')
+        }, 4000);
     }
 }, 1000);

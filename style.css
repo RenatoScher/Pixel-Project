@@ -140,6 +140,13 @@ button {
     }
 }
 
+@keyframes Prowler {
+    0% {background-color: black;}
+    30% {background-color: rgba(0, 0, 0, 0);}
+    70% {background-color: rgba(0, 0, 0, 0);}
+    100% {background-color: black;}
+}
+
 #game #painel #grid input {
     min-width: 1px;
     min-height: 1px;
@@ -157,11 +164,15 @@ button {
 
 
 #game #painel .prowler {
-    background-image: url();
+    background-image: url(assets/Prowler.jpeg);
+    background-size: 100% 100%;
+}
+#game #painel .myProwl {
+    background-image: url(assets/MyProwl.jpeg.jpg) !important;
 }
 
 #game #painel .prowler input {
-    background-color: transparent !important;
+    animation: Prowler 3s;
 }
 
 #confirm {
