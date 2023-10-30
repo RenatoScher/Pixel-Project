@@ -11,9 +11,9 @@
         <div id="sidebar">
 
             <div id="painelControl">
-                <input type="number" value="16" min="1" max="58" id="rows" onchange="fixProportion(this)"> <span>Rows</span>
+                <input type="number" value="16" min="1" max="58" id="rows" onchange="fixProportion(this)" onkeyup="return filterInput(event, this)" onpaste="handlePaste(event)"> <span>Rows</span>
 
-                <input type="number" value="16" min="1" max="100" id="columns" onchange="fixProportion(this)" > <span>Columns</span>
+                <input type="number" value="16" min="1" max="100" id="columns" onchange="fixProportion(this)" onkeyup="return filterInput(event, this)" onpaste="handlePaste(event)"> <span>Columns</span>
 
                 <button id="drawPainel" onclick="configurarJogo()">Resetar o Painel</button>
             </div>
@@ -64,8 +64,8 @@
             </div>
 
             <div id="saveButton">
-                <button onclick="saveDrawing('Saved')">Save Test</button>
-                <button onclick="loadDrawning('Saved')">Load Test</button>
+                <button onclick="saveDrawing(document.querySelector('#saveName').value)">Save Test</button><input list="saveOptions" name="browser" id="saveName"><datalist id="saveOptions"><option value="Saved"></option></datalist>
+                <button onclick="loadDrawning(document.querySelector('#loadOptions').value)">Load Test</button><select id="loadOptions"><option value="Saved">Saved</option><option value="Leandro">Leandro</option></select>
             </div>
 
         </div>

@@ -3,6 +3,8 @@ let history = [];
 const historyMax = 15;
 
 let serverTime = 0;
+let clickCount = 0;
+let holdToPaint = false;
 
 const grid = document.querySelector('#grid');
 const inpRow = document.getElementById('rows');
@@ -12,7 +14,7 @@ let gridSize = [0, 0]
 
 
 let confirmed = null;
-let needConfirm = false; //IMPORTANT: Change this before publoshing
+let needConfirm = true; //IMPORTANT: Change this before publishing
 function createConfirm(message) {
     if (!needConfirm) {
         confirmed = true;
@@ -94,6 +96,8 @@ function configurarJogo() {
         }
 
         saveAction();
+        saveAction();
+        //Save twice to Undo always have the blank page
      }
 }
 
@@ -148,6 +152,9 @@ function changeColor(e) {
         case 'Paint':
         
         button.style.backgroundColor = colorPicker.value;
+        if (!holdToPaint && ['Paint', 'Eraser'].includes(tool)) {
+            saveAction(!(clickCount % 3 == 0));
+        }
 
 
         break;
@@ -230,8 +237,6 @@ function selectColor(colorValue) {
     colorPicker.value = colorValue;
 }
 
-let holdToPaint = false;
-let clickCount = 0;
 let mouseHold = undefined;
 let mouseDown = 0;
 let mousePos = [undefined, undefined];
@@ -240,10 +245,6 @@ grid.addEventListener('mousedown', (e) => {
 
     if (clickCount > 1280) {clickCount = 0;}
     clickCount++;
-
-    if (clickCount % 3 == 0 && !holdToPaint && ['Paint', 'Eraser'].includes(tool)) {
-        saveAction();
-    }
 
     if (!holdToPaint || mouseHold != undefined || mouseDown == 1 || !['Paint', 'Eraser'].includes(tool)) {
         return false;
@@ -276,7 +277,7 @@ document.addEventListener('mousemove', (e) => {
 })
 
 function changeHoldState(inp) {
-    holdToPaint = inp.value;
+    holdToPaint = inp.checked;
 
     if (mouseHold != undefined) {
         clearInterval(mouseHold);
@@ -292,13 +293,14 @@ function showGrid() {
 
 let proportional = false
 function fixProportion(btn) {
-    // console.log(String(btn.value));
-    // if (String(inpRow.value) == '') {
-        
-    // }
+    if (btn.value.length == 0) {
+        btn.value = 0;
+    }
 
     inpRow.value = Math.floor(inpRow.value)
     inpCol.value = Math.floor(inpCol.value);
+
+    grid.classList.remove('e');
 
 
     if (inpCol.value > 100) {
@@ -326,9 +328,36 @@ function toggleProportion(inp) {
     fixProportion(document.querySelector('#rows'));
 }
 
+//Thanks user3248578 for the function: https://stackoverflow.com/questions/31706611/why-does-the-html-input-with-type-number-allow-the-letter-e-to-be-entered-in
+function filterInput(event, btn) {
+    var keyCode = ('which' in event) ? event.which : event.keyCode;
+
+    console.log(keyCode, btn, String(btn.value), btn.value.length);
+    if (keyCode == 69 && btn.value.length == 0) {
+        grid.classList.add('e');
+    } else {
+        grid.classList.remove('e')
+    };
+    
+    return true;
+};
+function handlePaste (e) {
+    var clipboardData, pastedData;
+
+    // Get pasted data via clipboard API
+    clipboardData = e.clipboardData || window.clipboardData;
+    pastedData = clipboardData.getData('Text').toUpperCase();
+
+    if(pastedData.indexOf('E')>-1) {
+        //alert('found an E');
+        e.stopPropagation();
+        e.preventDefault();
+    }
+};
+
 
 let historyIndex = 0;
-function saveAction() {
+function saveAction(overwrite) {
     const pixels = grid.children;
     const newResolutionAction = [];
     const newColorsAction = [];
@@ -342,8 +371,9 @@ function saveAction() {
         historyIndex = 0;
     }
 
-    history.unshift([]);
-    const newAction = history[0];
+    if (!overwrite) {
+        history.unshift([[], []]);
+    }
 
     newResolutionAction[0] = gridSize[0];
     newResolutionAction[1] = gridSize[1];
@@ -376,10 +406,8 @@ function saveAction() {
         }
     }
 
-    newAction[0] = newResolutionAction;
-    newAction[1] = newColorsAction;
-
-    console.log(history);
+    history[0][0] = newResolutionAction;
+    history[0][1] = newColorsAction;
 }
 
 function cleanHistory() {
@@ -428,6 +456,10 @@ function loadAction(increment) {
 
 
 function saveDrawing(name) {
+    if (name.length == 0 || !name || grid.children.length == 0) {
+        return false;
+    }
+
     const newResolutionSave = history[historyIndex][0];
     const newColorsSave = history[historyIndex][1];
 
@@ -444,12 +476,15 @@ function saveDrawing(name) {
     console.log(newSave);
 
     localStorage.setItem(name, JSON.stringify(newSave));
+    updateSaveOptions();
 }
 
-
+let loadName = undefined;
 function loadDrawning(name) {
+
     if (confirmed === null) {
         createConfirm('Tem certeza que deseja carregar o projeto? Seu desenho atual pode ser perdido!');
+        loadName = name;
     }
 
     if (confirmed === undefined) {
@@ -457,13 +492,14 @@ function loadDrawning(name) {
     } else {
         clearConfirm();
 
-        if (!confirmed || !savedStuff.includes(name)) {
+        if (!confirmed || !savedStuff.includes(loadName)) {
+            loadName = undefined;
             return false;
         }
 
         cleanHistory();
 
-        const loadSave = savedStuff[savedStuff.indexOf(name) + 1];
+        const loadSave = savedStuff[savedStuff.indexOf(loadName) + 1];
 
         const gridSavedSize = loadSave[0];
         const load = loadSave[1];
@@ -495,7 +531,35 @@ function loadDrawning(name) {
             last = pixel;
         }
 
+        loadName = undefined;
+
+        saveAction();
+        saveAction();
+        //Save 2 times so Undo always have the old saved version
         console.log('Loaded!');
+    }
+}
+
+function updateSaveOptions() {
+    const saveOptions = document.querySelector('#saveOptions');
+    const loadOptions = document.querySelector('#loadOptions');
+
+    saveOptions.innerHTML = '';
+    loadOptions.innerHTML = '';
+
+    for (let i = 0; i < savedStuff.length; i+=2) {
+        const name = savedStuff[i];
+        
+        console.log(name);
+
+        const saveOpt = document.createElement('option');
+        saveOpt.value = name;
+        saveOpt.innerText = name;
+
+        const loadOpt = saveOpt.cloneNode(true);
+
+        saveOptions.appendChild(saveOpt);
+        loadOptions.appendChild(loadOpt);
     }
 }
 
@@ -506,7 +570,7 @@ function getSavedDrawings() {
         const savedName = localStorage.key(i);
         const savedDrawning = localStorage.getItem(savedName);
 
-        if (!savedName) {
+        if (!savedName || savedName == 'minilogSettings') {
             return;
         }
 
@@ -517,23 +581,42 @@ function getSavedDrawings() {
 }
 
 getSavedDrawings();
+updateSaveOptions();
 
 
+//Awesomeness + Saitama
 let lastClickTime = 0;
+let awesomeCount = -1;
 document.addEventListener('mousedown', () => {
     lastClickTime = serverTime;
+
+    const target = document.elementFromPoint(mousePos[0], mousePos[1]);
+    const presetColors = [...document.querySelector('#presetColorHandler').children];
+    if (presetColors.includes(target)) {
+        presetColors.indexOf(target) == awesomeCount+1 ? awesomeCount++ : awesomeCount = -1;
+    } else {
+        awesomeCount = -1;
+    }
+
+    if (awesomeCount == presetColors.length - 1 && !grid.classList.contains('hideGrid')) {
+        grid.classList.add('awesome');
+    } else {
+        grid.classList.remove('awesome');
+    }
 })
 
 
+
+//Saitama
 setInterval(() => {
     serverTime++;
-    if (serverTime - lastClickTime == 30 && (history[historyIndex][1][0] == 'rgb(0, 0, 0)') && (history[historyIndex][1][1] == gridSize[0] * gridSize[1] - 1)) {
+    if (serverTime - lastClickTime == 30 && (history[historyIndex][1][0] == 'rgb(0, 0, 0)') && (history[historyIndex][1][1] == gridSize[0] * gridSize[1] - 1) && !(grid.classList.contains('e'))) {
         let audio = new Audio('assets/Howl.mp3');
         audio.play();
 
         grid.classList.toggle('prowler');
         const rand = Math.floor(Math.random() * 100);
-        if (rand <= 15) {
+        if (rand <= 8) {
             grid.classList.toggle('myProwl')
         }
         setTimeout(() => {

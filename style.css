@@ -93,6 +93,7 @@ button {
     border-radius: 5px;
     display: grid;
     outline: #9ab5e7 5px solid;
+    background-size: 100% 100%;
 }
 
 @keyframes Awesome {
@@ -165,7 +166,6 @@ button {
 
 #game #painel .prowler {
     background-image: url(assets/Prowler.jpeg);
-    background-size: 100% 100%;
 }
 #game #painel .myProwl {
     background-image: url(assets/MyProwl.jpeg.jpg) !important;
@@ -173,6 +173,14 @@ button {
 
 #game #painel .prowler input {
     animation: Prowler 3s;
+}
+
+#game #painel .e {
+    background-image: url(assets/E.jpg) !important;
+}
+
+#game #painel .e input {
+    background-color: transparent !important;
 }
 
 #confirm {
