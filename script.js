@@ -610,7 +610,7 @@ document.addEventListener('mousedown', () => {
 //Saitama
 setInterval(() => {
     serverTime++;
-    if (serverTime - lastClickTime == 30 && (history[historyIndex][1][0] == 'rgb(0, 0, 0)') && (history[historyIndex][1][1] == gridSize[0] * gridSize[1] - 1) && !(grid.classList.contains('e'))) {
+    if (serverTime - lastClickTime == 30 && (history[historyIndex][1][0] == 'rgb(0, 0, 0)') && (history[historyIndex][1][1] == gridSize[0] * gridSize[1] - 1)) {
         let audio = new Audio('assets/Howl.mp3');
         audio.play();
 
