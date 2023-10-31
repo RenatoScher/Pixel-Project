@@ -11,27 +11,23 @@
         <div id="sidebar">
 
             <div id="painelControl">
-                <input type="number" value="16" min="1" max="58" id="rows" onchange="fixProportion(this)" onkeyup="return filterInput(event, this)" onpaste="handlePaste(event)"> <span>Rows</span>
+                <input type="number" value="16" min="1" max="58" id="rows" onchange="fixProportion(this)"> <span>Rows</span>
 
-                <input type="number" value="16" min="1" max="100" id="columns" onchange="fixProportion(this)" onkeyup="return filterInput(event, this)" onpaste="handlePaste(event)"> <span>Columns</span>
+                <input type="number" value="16" min="1" max="100" id="columns" onchange="fixProportion(this)" > <span>Columns</span>
 
                 <button id="drawPainel" onclick="configurarJogo()">Resetar o Painel</button>
             </div>
 
 
             <div id="settings">
-                <div id="optionsofoptions"><p>Options</p></div>
-                <div id="showtime">                
-                    <label for="Hold" id="holdToPaintText">Segure para pintar</label>
-                    <input type="checkbox" name="Hold" id="holdToPaint" onclick="changeHoldState(this)">
-                    <label for="ShowGrid">Mostrar Grid</label>
-                    <input type="checkbox" name="ShowGrid" id="showGrid" onclick="showGrid()" checked>
-                    <label for="Proportion" id="fixProportionText">Fixar proporção (Quadrado)</label>
-                    <input type="checkbox" name="Proportion" id="fixProportion" onclick="toggleProportion(this)">
-                    <label for="NeedConfirm">Tela de Confirmar</label>
-                    <input type="checkbox" name="NeedConfirm" id="needConfirm" checked onclick="toggleConfirm(this)">
-                </div>
-
+                <input type="checkbox" name="Hold" id="holdToPaint" onclick="changeHoldState(this)">
+                <label for="Hold" id="holdToPaintText">Segure para pintar</label> <br>
+                <input type="checkbox" name="ShowGrid" id="showGrid" onclick="showGrid()" checked>
+                <label for="ShowGrid">Mostrar Grid</label> <br>
+                <input type="checkbox" name="Proportion" id="fixProportion" onclick="toggleProportion(this)">
+                <label for="Proportion" id="fixProportionText">Fixar proporção (Quadrado)</label> <br>
+                <input type="checkbox" name="NeedConfirm" id="needConfirm" checked onclick="toggleConfirm(this)">
+                <label for="NeedConfirm">Tela de Confirmar</label> <br>
             </div>
 
 

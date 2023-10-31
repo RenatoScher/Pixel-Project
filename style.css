@@ -30,44 +30,48 @@ button {
     padding-bottom: 32px;
 }
 
-#sidebar #Red {
+#presetColorHandler #Red {
     background-color: red;
 }
 
-#sidebar #Orange {
+#presetColorHandler #Orange {
     background-color: orange;
 }
 
-#sidebar #Yellow {
+#presetColorHandler #Yellow {
     background-color: yellow;
 }
 
-#sidebar #Lime {
+#presetColorHandler #Lime {
     background-color: lime;
 }
 
-#sidebar #Green {
+#presetColorHandler #Green {
     background-color: green;
 }
 
-#sidebar #Cyan {
+#presetColorHandler #Cyan {
     background-color: cyan;
 }
 
-#sidebar #Blue {
+#presetColorHandler #Blue {
     background-color: blue;
 }
 
-#sidebar #Purple {
+#presetColorHandler #Purple {
     background-color: purple;
 }
 
-#sidebar #Magenta {
+#presetColorHandler #Magenta {
     background-color: magenta;
 }
 
-#sidebar #Pink {
+#presetColorHandler #Pink {
     background-color: #ffc0cb;
+}
+
+#sidebar #settings label {
+    color: rgb(239, 239, 239);
 }
 
 #game #painel {
@@ -93,7 +97,6 @@ button {
     border-radius: 5px;
     display: grid;
     outline: #9ab5e7 5px solid;
-    background-size: 100% 100%;
 }
 
 @keyframes Awesome {
@@ -166,6 +169,7 @@ button {
 
 #game #painel .prowler {
     background-image: url(assets/Prowler.jpeg);
+    background-size: 100% 100%;
 }
 #game #painel .myProwl {
     background-image: url(assets/MyProwl.jpeg.jpg) !important;
@@ -173,14 +177,6 @@ button {
 
 #game #painel .prowler input {
     animation: Prowler 3s;
-}
-
-#game #painel .e {
-    background-image: url(assets/E.jpg) !important;
-}
-
-#game #painel .e input {
-    background-color: transparent !important;
 }
 
 #confirm {
@@ -262,13 +258,5 @@ span{
     left: -12px;
     width: 300px;
     height: 90px;
-    border-bottom: 5px solid #002466 ;
-    
-}
-#optionsofoptions{
-    width: 150px;
-    height: 50px;
-    background-color: #0d4cc1;
-    text-align: center;
-    
+    border-bottom: 5px solid #002466 ;   
 }
